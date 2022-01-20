@@ -1,0 +1,43 @@
+---
+title: "Lab1"
+author: ""
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The first lab will give an overview of the experimental design process. Suppose you have been tasked to design an experiment to understand the efficacy of N95s on preventing college students from contracting the omicron variant of COVID-19.
+
+The textbook provides a checklist for planning experiments. We will work through the start of this checklist, parts A - E. Experimental designs focused on people are notoriously difficult, with this lab you have purview to decide whether your plans are or are not entirely realistic.
+
+
+a. Define the objectives of the experiment.
+
+
+b. Identify all sources of variation, including:
+   i. treatment factors and their levels,
+
+   ii. experimental units,
+
+   iii. blocking factors, noise factors, and covariates.
+
+ 
+c. Choose a rule for assigning the experimental units to the treatments. 
+
+ 
+d. Specify the measurements to be made, the experimental procedure, and the anticipated difficulties.
+
+ 
+e. Run a pilot experiment. Propose your pilot experiment in this course.
+
+
+--- 
+f. Specify the model.
+ 
+g. Outline the analysis.
+ 
+h. Calculate the number of observations that need to be taken.
+ 
+i. Review the above decisions. Revise, if necessary.

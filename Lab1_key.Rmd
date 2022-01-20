@@ -1,0 +1,45 @@
+---
+title: "Lab1"
+author: "A Solution Key"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The first lab will give an overview of the experimental design process. Suppose you have been tasked to design an experiment to understand the efficacy of N95s on preventing college students from contracting the omicron variant of COVID-19.
+
+The textbook provides a checklist for planning experiments. We will work through the start of this checklist, parts A - E. Experimental designs focused on people are notoriously difficult, with this lab you have purview to decide whether your plans are or are not entirely realistic.
+
+
+a. Define the objectives of the experiment.
+
+__The objective of the study is to understand the efficacy of N95s for preventing infection of the omicron variant in college student populations.__
+ 
+b. Identify all sources of variation, including:
+   i. treatment factors and their levels,
+   __There are at least two treatment factors. It depends on what we want to compare N95s with, but could include surgical masks, cloth masks, and/or no masks.__ 
+   ii. experimental units,
+   __The experimental units are the units that are treatment factors (mask type) are applied to. Most likely this will be individual students, but it could be applied at the class or university level.__
+   iii. blocking factors, noise factors, and covariates.
+   __Other factors that could be impactful might include local mitigation policies (are masks required in grocery stores/restaurants?), student living arrangements and behavior outside class, overall infection rates in the community, vaccination status, natural immunity__
+ 
+c. Choose a rule for assigning the experimental units to the treatments. 
+__A randomization process can be enable to assign a cloth mask or N95 to each student to be worn for the duration of the study. To account for additional sources of variation, blocking factors will be used based on university and immunity (measured antibodies) from vaccination status and previous infection.__
+ 
+d. Specify the measurements to be made, the experimental procedure, and the anticipated difficulties.
+__With this study, students will be tracked over the course of the semester and tested twice a week to determine of the student has contracted COVID-19. Genetic sequencing will be performed on positive cases to confirm the omicron variant. It would be easier to directly expose students to the virus, but that would not be realistic. Furthermore, it is likely that additional exposure and risk would occur outside of the classroom that is not accounted for in this experiment.__
+ 
+e. Run a pilot experiment. Propose your pilot experiment in this course.
+
+__Students in 541/441 will have blood drawn to determine immunity levels (based on antibodies created by vaccines and/or previous infection). Within each level (likely 2 or 3 categories), the students will be randomly assigned a mask to wear for the semester. Students will be tested twice weekly to determine presence of infection.__
+ 
+ 
+f. Specify the model.
+ 
+g. Outline the analysis.
+ 
+h. Calculate the number of observations that need to be taken.
+ 
+i. Review the above decisions. Revise, if necessary.
