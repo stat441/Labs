@@ -1,0 +1,34 @@
+---
+title: "Lab2"
+author: ""
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(see)
+```
+
+As we consider designed experiments, the process should not only focus on how to collect data, but we should also have a data analysis plan before collecting any data. With experiments we can be intentional in the decision phase so that data analysis can be simple.
+
+For this lab, we are going to simulate data from a 1-factor designed experiment. 
+
+
+#### Experimental Overview
+
+Suppose we are interested in the ability of [boot gloves](https://www.rei.com/product/891156/dryguy-boot-gloves) to keep the interior of a ski boot warm.
+
+Thirty participants will be selected to participate in this experiment. All participants will be placed in a zegree degree chamber for 30 minutes. A boot glove will be randomly placed on one of the participants ski boots, the other boot will not have a boot glove. Sensors will record the temperature in each boot at the end of the 30 minute session.
+
+#### Q1
+Assume that the boot gloves actually have no effect interior temperature of the boots, simulate data to represent the boot temperatures for the thirty participants.
+
+#### Q2
+Create a side-by-side visual of the data. This should include notation for both the treatment and subjects.
+
+
+
+#### Q3
+Now repeat Q1 and Q2 where there is a 5 degree effect from the boot glove.
+
