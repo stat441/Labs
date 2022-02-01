@@ -1,5 +1,5 @@
 ---
-title: "Lab2"
+title: "Lab3"
 author: ""
 output: pdf_document
 ---
