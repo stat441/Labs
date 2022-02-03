@@ -1,0 +1,86 @@
+---
+title: "Lab2"
+author: ""
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(see)
+```
+
+As we consider designed experiments, the process should not only focus on how to collect data, but we should also have a data analysis plan before collecting any data. With experiments we can be intentional in the decision phase so that data analysis can be simple.
+
+For this lab, we are going to simulate data from a 1-factor designed experiment. 
+
+
+#### Experimental Overview
+
+Suppose we are interested in the ability of [boot gloves](https://www.rei.com/product/891156/dryguy-boot-gloves) to keep the interior of a ski boot warm.
+
+Thirty participants will be selected to participate in this experiment. All participants will be placed in a zegree degree chamber for 30 minutes. A boot glove will be randomly placed on one of the participants ski boots, the other boot will not have a boot glove. Sensors will record the temperature in each boot at the end of the 30 minute session.
+
+#### Q1
+Assume that the boot gloves actually have no effect interior temperature of the boots, simulate data to represent the boot temperatures for the thirty participants.
+
+```{r}
+set.seed(01242022)
+num_participants <- 30
+participant_sd <- 10
+participant_temps <- rnorm(num_participants, mean = 50, sd = participant_sd)
+boot_sd <- 2
+boot_temps <- rnorm(num_participants * 2, mean = rep(participant_temps, each = 2), sd = boot_sd)
+boot_data <- tibble(temp = boot_temps, 
+                    subject = factor(rep(1:num_participants, each =2)), 
+                    treatment = rep(c('Glove','No Glove'), num_participants))
+```
+
+
+#### Q2
+Create a side-by-side visual of the data. This should include notation for both the treatment and subjects.
+
+```{r, fig.align = 'center', fig.cap = 'Final temperatures are shown for each subject depending on whether a boot glove is worn for the experiment. The numbers indicate subject number for each observation. We see minimal impacts from wearing the boot glove.'}
+boot_data %>% 
+  ggplot(aes(y = boot_temps, x = treatment, label = subject)) +  
+  geom_violinhalf() + 
+  geom_boxplot(width=0.1) + 
+  geom_text(position = position_jitter(seed = 1)) + 
+  theme_bw() + 
+  ylab('Boot Temperature') + 
+  xlab('') + 
+  ggtitle('Boot temperature as a function of boot glove presence.')
+```
+
+
+#### Q3
+Now repeat Q1 and Q2 where there is a 5 degree effect from the boot glove.
+
+
+```{r}
+num_participants <- 30
+participant_sd <- 10
+participant_temps <- rnorm(num_participants, mean = 50, sd = participant_sd)
+boot_sd <- 2
+boot_mean <- rep(participant_temps, each = 2) + rep(c(0,5), num_participants)
+boot_temps <- rnorm(num_participants * 2, mean = boot_mean, sd = boot_sd)
+boot_data2 <- tibble(temp = boot_temps, 
+                     subject = factor(rep(1:num_participants, each =2)), 
+                     treatment = rep(c('No Glove','Glove'), num_participants))
+```
+
+```{r, fig.align = 'center', fig.cap = 'Final temperatures are shown for each subject depending on whether a boot glove is worn for the experiment. The numbers indicate subject number for each observation. It appears that there may be a difference in the temperature, but more data may be required to verify.'}
+boot_data2 %>% 
+  ggplot(aes(y = boot_temps, x = treatment, label = subject)) +  
+  geom_violinhalf() + 
+  geom_boxplot(width=0.1) + 
+  geom_text(position = position_jitter(seed = 1)) + 
+  theme_bw() + 
+  ylab('Boot Temperature') + 
+  xlab('') + 
+  ggtitle('Boot temperature as a function of boot glove presence.')
+```
+
+
+
+
