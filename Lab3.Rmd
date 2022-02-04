@@ -1,7 +1,7 @@
 ---
 title: "Lab3"
 author: ""
-output: pdf_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -13,13 +13,13 @@ For this project we will be performing an experiment assessing whether there are
 
 To complete the experiment, please follow the directions below:
 
-1. Flip a coin to determine which airplane you will fold and throw first. If you get `Heads`, please create airplane 1 first. If you get `Tails`, please create and throw airplane 2 first.
+1. Flip a coin to determine which airplane you will fold and throw first. If you get `Heads`, please create airplane PA-1 ("the glider") first. If you get `Tails`, please create and throw airplane PA-2 ("the dart") first.
 
-2. Airplane 1 can be constructed with the following [instructions: (link)](https://github.com/stat441/Labs/raw/main/Airplane1.pdf). Make sure to use two-sided printing for easiest folding. Airplane 2 can be constructed with the following [instructions: (link)](https://github.com/stat441/Labs/raw/main/Airplane2.pdf).
+2. The glider can be constructed with the following [instructions: (link)](https://github.com/stat441/Labs/raw/main/Airplane1.pdf). Make sure to use two-sided printing for easiest folding. The dart can be constructed with the following [instructions: (link)](https://github.com/stat441/Labs/raw/main/Airplane2.pdf).
 
 3. After constructing both airplanes, you make take a few practice throws, but make sure to practice evenly with both.
 
-4. When ready, throw your airplanes in the order specified by your coin flip. Please report the distance traveled (in inches) by measuring the farthest point away where the ends.
+4. When ready, throw your airplanes in the order specified by your coin flip. Please report the distance traveled (in feet) by measuring the farthest point away where the ends.
 
-5. Report your results. Please specify which airplane was constructed / thrown first and the distance for each airplane.
+5. For this lab, please submit your results. Specify which airplane was constructed / thrown first and the distance for each airplane. If you are inclined also consider filling out this Google Form: [https://docs.google.com/forms/d/e/1FAIpQLSf5mhVq4G25fMCGuZsttC75aCwVfHbJpjconvzgiIMv5QBXcQ/viewform?usp=sf_link](https://docs.google.com/forms/d/e/1FAIpQLSf5mhVq4G25fMCGuZsttC75aCwVfHbJpjconvzgiIMv5QBXcQ/viewform?usp=sf_link)
 
