@@ -1,0 +1,41 @@
+Timestamp,First,Location,Throwing,Origami,id,feet_dec,name,value
+2/4/22 15:38,Dart,Inside,No,No,1,17.25,Dart,17.25
+2/4/22 15:38,Dart,Inside,No,No,1,6.91,Glider,6.91
+2/4/22 15:38,Glider,Inside,No,No,2,17.5,Dart,17.5
+2/4/22 15:38,Glider,Inside,No,No,2,8.8,Glider,8.8
+2/4/22 15:40,Glider,Inside,Yes,No,3,16.666666666666668,Dart,"16'8"""
+2/4/22 15:40,Glider,Inside,Yes,No,3,11.75,Glider,"11'9"""
+2/4/22 15:41,Dart,Inside,No,Yes,4,16,Dart,16
+2/4/22 15:41,Dart,Inside,No,Yes,4,9.75,Glider,9.75
+2/4/22 15:42,Dart,Inside,No,Yes,5,8.4,Dart,8.4
+2/4/22 15:42,Dart,Inside,No,Yes,5,0.25,Glider,0.25
+2/4/22 15:42,Dart,Inside,No,Yes,6,7,Dart,7
+2/4/22 15:42,Dart,Inside,No,Yes,6,6,Glider,6
+2/4/22 15:42,Glider,Inside,Yes,No,7,16.5,Dart,"16' 6"""
+2/4/22 15:42,Glider,Inside,Yes,No,7,13.5,Glider,13.5 ft linearly
+2/4/22 15:45,Dart,Inside,No,No,8,13.083333333333334,Dart,157
+2/4/22 15:45,Dart,Inside,No,No,8,13.416666666666666,Glider,161
+2/4/22 15:47,Dart,Inside,No,No,9,15.083333333333334,Dart,181 inches
+2/4/22 15:47,Dart,Inside,No,No,9,4.916666666666667,Glider,59 inches
+2/4/22 15:49,Dart,Inside,Yes,Yes,10,10,Dart,10
+2/4/22 15:49,Dart,Inside,Yes,Yes,10,19,Glider,19
+2/4/22 15:51,Dart,Inside,No,No,11,15,Dart,15
+2/4/22 15:51,Dart,Inside,No,No,11,4.7083,Glider,4.7083
+2/4/22 15:53,Dart,Inside,No,No,12,9,Dart,9
+2/4/22 15:53,Dart,Inside,No,No,12,6.333,Glider,6.333
+2/4/22 15:56,Dart,Inside,No,No,13,12.66667,Dart,12.66667 feet
+2/4/22 15:56,Dart,Inside,No,No,13,-0.416,Glider,-0.416 feet
+2/4/22 20:37,Glider,Inside,Yes,No,14,2,Dart,2
+2/4/22 20:37,Glider,Inside,Yes,No,14,9,Glider,9
+2/7/22 11:29,Dart,Inside,No,No,15,16.166666666666668,Dart,"16'2"""
+2/7/22 11:29,Dart,Inside,No,No,15,15.666666666666666,Glider,"15'8"""
+2/7/22 17:07,Glider,Inside,Yes,Yes,16,20.75,Dart,"20'9"""
+2/7/22 17:07,Glider,Inside,Yes,Yes,16,4.166666666666667,Glider,"4'2"""
+2/9/22 8:17,Glider,Inside,No,No,17,14.58,Dart,14.58
+2/9/22 8:17,Glider,Inside,No,No,17,4.42,Glider,4.42
+2/9/22 18:16,Dart,Inside,No,No,18,16,Dart,16
+2/9/22 18:16,Dart,Inside,No,No,18,6,Glider,6
+2/9/22 18:20,Dart,Inside,Yes,No,19,15.17,Dart,15.17
+2/9/22 18:20,Dart,Inside,Yes,No,19,11.67,Glider,11.67
+2/9/22 22:07,Dart,Inside,No,No,20,7.2,Dart,7.2
+2/9/22 22:07,Dart,Inside,No,No,20,5.8,Glider,5.8
