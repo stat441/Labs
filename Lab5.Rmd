@@ -1,0 +1,86 @@
+---
+title: "Lab5"
+author: ""
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(see)
+library(arm)
+```
+
+For this lab we will be starting to think about analyzing our airplane data. Clean the `Airplane` dataset and recreate a figure similar to lab 2.
+
+
+```{r, message = F, warning = F}
+airplane <- read_csv("https://raw.githubusercontent.com/stat441/Labs/main/airplane_clean.csv")
+
+airplane_wide <- airplane %>% 
+  mutate(value = feet_dec) %>% 
+  dplyr::select(-feet_dec) %>% 
+  pivot_wider(names_from = name, values_from = value)
+
+```
+
+
+## Data Visualization
+
+```{r, fig.align = 'center', fig.cap = 'Distance traveled for paper airplane in STAT 441 / 541 experiment. Numbers represent unique paper airplane maker/throwers.'}
+airplane %>% 
+  ggplot(aes(y = feet_dec, x = name, label = id)) +  
+  geom_violinhalf() + 
+  geom_boxplot(width=0.1) + 
+  geom_text(position = position_jitter(seed = 1)) + 
+  theme_minimal() + 
+  ylab('Distance traveled (feet)') + 
+  xlab('Airplane Type') + 
+  ggtitle('Airplane Distance from STAT441/541 Experiment')
+```
+
+
+#### 1. 
+
+Write out the statistical model suggested implied by the following code. 
+
+```{r}
+lm(feet_dec ~ name, data = airplane) %>% display()
+```
+
+
+#### 2. 
+
+Write out the statistical model suggested implied by the following code.
+
+```{r}
+lm(feet_dec ~ name - 1, data = airplane) %>% display()
+```
+
+
+#### 3.
+
+Do the statistical models in Q1 and Q2 account for the blocking structure of our designed experiment? If not, evaluate a model to include this factor using the reference case specification of Q1. Note: you don't need to write out the model notation, just fit this model.
+
+```{r}
+display(lm(feet_dec ~ name + factor(id), data = airplane))
+```
+
+#### 4.
+
+Analyze the data using a paired t-test
+
+```{r}
+#t.test(x = , y = , paired = T) 
+```
+
+
+#### 5.
+
+Analyze the data using a t-test on the difference (Dart - Glider) for each participant
+
+
+#### 6.
+
+Which of the analyses Q1 - Q5 provide the same inferences from the experiment?
+
