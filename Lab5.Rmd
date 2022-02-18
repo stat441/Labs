@@ -62,10 +62,6 @@ lm(feet_dec ~ name - 1, data = airplane) %>% display()
 
 Do the statistical models in Q1 and Q2 account for the blocking structure of our designed experiment? If not, evaluate a model to include this factor using the reference case specification of Q1. Note: you don't need to write out the model notation, just fit this model.
 
-```{r}
-display(lm(feet_dec ~ name + factor(id), data = airplane))
-```
-
 #### 4.
 
 Analyze the data using a paired t-test
