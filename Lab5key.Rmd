@@ -1,0 +1,101 @@
+---
+title: "Lab5"
+author: "key"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(see)
+library(arm)
+```
+
+For this lab we will be starting to think about analyzing our airplane data. Clean the `Airplane` dataset and recreate a figure similar to lab 2.
+
+
+```{r, message = F, warning = F}
+airplane <- read_csv("https://raw.githubusercontent.com/stat441/Labs/main/airplane_clean.csv")
+
+airplane_wide <- airplane %>% 
+  mutate(value = feet_dec) %>% 
+  dplyr::select(-feet_dec) %>% 
+  pivot_wider(names_from = name, values_from = value)
+
+```
+
+
+## Data Visualization
+
+```{r, fig.align = 'center', fig.cap = 'Distance traveled for paper airplane in STAT 441 / 541 experiment. Numbers represent unique paper airplane maker/throwers.'}
+airplane %>% 
+  ggplot(aes(y = feet_dec, x = name, label = id)) +  
+  geom_violinhalf() + 
+  geom_boxplot(width=0.1) + 
+  geom_text(position = position_jitter(seed = 1)) + 
+  theme_minimal() + 
+  ylab('Distance traveled (feet)') + 
+  xlab('Airplane Type') + 
+  ggtitle('Airplane Distance from STAT441/541 Experiment')
+```
+
+
+#### 1. 
+
+Write out the statistical model suggested implied by the following code. 
+
+```{r}
+lm(feet_dec ~ name, data = airplane) %>% display()
+```
+
+\begin{align}
+y & = \beta_0 + \beta_1 x_{glider} + \epsilon
+\end{align}
+
+where $y$ is the distance a plane traveled, $\beta_0$, or (`(Intercept)`), is the expected distance for the reference group `dart`, $\beta_1$, or (`nameGlider`), is the expected difference between the `dart` and the `glider`, $x_{glider}$ is a binary dummy variable indicating the observation was a glider, and $\epsilon \sim N(0,\sigma^2)$ is an error term.
+
+#### 2. 
+
+Write out the statistical model suggested implied by the following code.
+
+```{r}
+lm(feet_dec ~ name - 1, data = airplane) %>% display()
+```
+
+\begin{align}
+y & = \beta_0 x_{dart} + \beta_1 x_{glider} + \epsilon
+\end{align}
+
+where $y$ is the distance a plane traveled, $\beta_0$, or (`nameDart`), is the expected distance for `dart`, $\beta_1$, or (`nameGlider`), is the expected distance for the `glider`, $x_{dart}$ and $x_{glider}$ are a binary dummy variables, and $\epsilon \sim N(0,\sigma^2)$ is an error term.
+
+#### 3.
+
+Do the statistical models in Q1 and Q2 account for the blocking structure of our designed experiment? If not, write out pseudo-code to include this factor using the reference case specification of Q1.
+
+```{r}
+summary(lm(feet_dec ~ name + factor(id), data = airplane))
+```
+
+#### 4.
+
+Analyze the data using a paired t-test
+
+```{r}
+t.test(x = airplane_wide$Dart, y = airplane_wide$Glider, paired = T) 
+```
+
+
+#### 5.
+
+Analyze the data using a t-test on the difference (Dart - Glider) for each participant
+
+```{r}
+airplane_wide <- airplane_wide %>% mutate(diff = Dart - Glider)
+t.test(airplane_wide$diff)
+```
+
+#### 6.
+
+Which of the analyses Q1 - Q5 provide the same inferences from the experiment?
+
+Q3 - Q4 - Q5 all provide the same inferences. The include a variable (and associated test) to determine if there is an expected distance between average flight distance of the two airplanes. A paired t-test is a special case of an ANOVA model with a blocking factor. Similarly, looking just at the difference between the distance for each participant includes the same test. 
