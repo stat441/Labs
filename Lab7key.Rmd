@@ -1,0 +1,124 @@
+---
+title: "Lab 7"
+author: "key"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+```
+
+
+Every experimental design starts with a pre-randomized design plan that will:
+
+- List out all possible treatment levels (could come from one or more treatment factors)
+- Decide number of replicates per treatment level
+
+For a completely randomized design (CRD) plan, assignment of treatments to EUs is done completely at random and preserves the desired replication.
+
+---
+
+#### Question 1: experimental plan
+
+Consider our pizza dough example from class with three times allowing the dough to rise. Write out the pre-design plan (treatment levels & number of replicates). You can decide the number of replicates.
+
+__1.__ 3 times (30 minutes, 40 minutes, 50 minutes)
+
+__2.__ 5 replicates for each treatment (I like pizza)
+
+---
+
+A randomization procedure is valid if:
+ - all permutations of treatment labels are equally likely
+ - it preserves the desired replication
+ 
+This is not the same as saying every EU has the same chance to be assigned a given treatment
+
+--
+
+#### Question 2: valid randomization?
+
+Would the following procedure be a valid randomization, why or why not?
+
+```{r}
+set.seed(03082022)
+trt_levels <- 3
+replicates <- 5
+EUs <- trt_levels * replicates
+
+data.frame(EUs = 1:EUs, trt = sample(3,15, replace = T)) %>% kable()
+```
+
+__It would not be a valid randomization, as it doesn't constrain the replicates to be 5 for each treatment level__
+
+---
+
+Consider a design that with two treatment levels and 3 replicates for each replicate. Assume randomization is determined by a coin flip for each participant - until the quota for given treatment level has been met.
+
+Consider the following randomization and associated probabilities
+
+```{r, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| EUs        | 1 | 2  | 3| 4 | 5  | 6 |
+|------|:--------:|------:|------:|------|:--------:|------:|
+| TRT    | 1      | 2 | 2 |1| 1| 2|
+| Prob | 1/2  |1/2|1/2 | 1/2| 1/2| 1 |
+"
+cat(tabl) 
+```
+
+for this randomization procedure, the last treatment procedure is completely determined. So the probability of this design would be $\left( \frac{1}{2} \right)^5$
+
+---
+
+#### Question 3: permutation probability
+
+Calculate the probability of each permutation below. Does this result in a valid randomization procedure?
+
+```{r, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+| EUs        | 1 | 2  | 3| 4 | 5  | 6 |
+|------|:--------:|------:|------:|------|:--------:|------:|
+| perm 1    | 1      | 2 | 2 |2| 1| 1|
+| perm 2    | 2      | 2 | 2 |1| 1| 1|
+| perm 3    | 1      | 2 | 2 |1| 1| 2|
+"
+cat(tabl) 
+```
+
+*The probabilities would be:* `perm 1 =` $\left( \frac{1}{2}\right) ^ 4$, `perm 2 =` $\left( \frac{1}{2}\right) ^ 3$, `perm 2 =` $\left( \frac{1}{2}\right) ^ 5$. So not a valid randomization scheme.
+
+---
+
+There are many valid ways to generate a CRD. The easiest is to use computer randomization:
+
+1. Create a list of EUs from 1 to N
+2. Generate random number for each EU
+3. Sort by EUs by random number
+4. Assign first $r_1$ to treatment 1, assign next $r_2$ to treatment 2...
+
+Note steps 1 - 3 can be done with sample in `R`.
+
+---
+
+#### Question 4: design randomization
+
+Write code to create a valid randomization for your experimental settings in Question 1.
+
+```{r}
+data.frame(EUs = sample(15), treatment = rep(c(1,2,3), each = 5)) %>% kable()
+```
+
+---
+
+Treatments do not have to be equally replicated for a design to be called a CRD, its a CRD due to the randomization procedure.
+
+CRDS are recommended when EUs are fairly homogeneous
+
+Nuisance factors are either:
+
+- Held constant
+- Measured and adjusted for with analysis of covariance
+

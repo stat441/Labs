@@ -1,0 +1,109 @@
+---
+title: "Lab8"
+author: "key"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+For this lab we will explore ANCOVA models using simulated data. Consider the motivation presented in class where the experimental units are piglets of different weights.
+
+### Q1
+Consider the 60 "fake" piglets and write code to add a column titled `treatment` to the `fake_pigs` tibble. Use a CRD to allocate 20 EUs to treatments 1, 2, and 3.
+
+```{r}
+set.seed(03212022)
+total_pigs <- 60
+fake_pigs <- tibble(piglet = 1:total_pigs, piglet_weight = runif(total_pigs, min = 10, max = 30))
+```
+
+```{r}
+fake_pigs <- fake_pigs %>% mutate(treatment = factor(sample(rep(1:3, total_pigs/3), total_pigs)))
+```
+
+### Q2
+
+Consider the following statistical model:
+$$Y_{ij} = \tau_i + x_{ij} \beta + E_{ij}$$
+where $Y_{ij}$ is the weight after a study for the $j^{th}$ piglet in the $i^{th}$ treatment, $\tau_i$ is the treatment effect associated with treatment $i$ (when holding $\mu = 0$ for identifiability), $x_{ij}$ is the starting weight for the $ij_{th}$ piglet, $\beta$ is effect associated with the starting weight, and $E_{ij}$ is the error term in the model, where $E_{ij} \sim N(0, \sigma^2).$
+
+Data has been simulated for each of the treatments using values below for $\tau_1$, $\tau_2$, $\tau_3$, $\beta$, and $\sigma$ simulate values for $Y$. Create a figure that shows Y and includes indicators (color / shapes) for the different treatments. (Note: you'll need to make sure you add a column titled `treatment` in your `fake_pigs` tibble and remove the eval = F tag on the R code below.)
+
+```{r}
+tau1 <- 10
+tau2 <- 15
+tau3 <- 20
+beta <- 1
+sigma <- 2
+
+X_matrix <- model.matrix(~factor(treatment) - 1 + piglet_weight, data = fake_pigs)
+param_vec <- c(tau1, tau2, tau3, beta)
+Y <- rnorm(total_pigs, mean = X_matrix %*% param_vec, sd = sigma)
+fake_pigs <- fake_pigs %>% mutate(Y = Y)
+```
+
+```{r}
+fake_pigs %>% 
+  ggplot(aes(y = Y, x = piglet_weight, color = treatment)) +
+  geom_point() + 
+  geom_smooth(method = 'lm', formula = 'y~x') + 
+  theme_bw() + xlab('Initial Piglet Weight') +
+  ylab('Final piglet weight') +
+  ggtitle('Piglet weights with additive model')
+
+```
+
+### Q3
+
+Use `lm` to fit the model spelled in in Q2 to the sythetic data. Print the model output here. Use the cell means specification.
+
+```{r}
+fake_pigs %>% lm(Y ~ treatment + piglet_weight -1, data = .) %>% summary()
+```
+
+
+### Q4
+
+Now consider the model in Q2, does the treatment effect differ depending on the starting weight? Why or why not?
+
+__In this particular case, the final weight is just the starting weight plus the treatment weight (with error), so weight gained does not depend on starting weight - although final weight certainly does. Even if $\beta \neq1$ the treatment effects do not depend on starting weights (although the final weight would).__
+
+### Q5
+
+Consider the figure below and explain how the initial piglet weights and the treatment factors influence the final weights.
+
+```{r}
+X_matrix <- model.matrix(~factor(treatment) * piglet_weight -1, data = fake_pigs)
+param_vec <- c(tau1, tau2, tau3, beta, -1, -.6)
+new_Y <- rnorm(total_pigs, mean = X_matrix %*% param_vec, sd = sigma)
+fake_pigs <- fake_pigs %>% mutate(Y2 = new_Y)
+
+fake_pigs %>% 
+  ggplot(aes(y = Y2, x = piglet_weight, color = treatment)) +
+  geom_point() + 
+  geom_smooth(method = 'lm', formula = 'y~x') + 
+  theme_bw() + xlab('Initial Piglet Weight') +
+  ylab('Final piglet weight') +
+  ggtitle('Piglet weights') +
+  ylim(0, max(new_Y)) + xlim(0, max(fake_pigs$piglet_weight))
+```
+
+__Piglets receiving treatment 2 all end up at about the same weight, regardless of starting weight. Many of these lose considerable weight. For treatments 1 and 3, the final weight seems to depend on a combination of the initial weight and the treatment level. For piglets starting at closer to 10 units, the treatment 3 leads to higher weights; however, for initial weights closer to 30 treatment 1 leads to higher weights. This is all to say the the treatment effect depends on an interaction with the intitial weight. Another way to state this is if you are hoping to have the largest pig, the best treatment would depend on the starting weight.__
+
+### Q6 (541 only)
+
+Fit a model to the data set created for Q5 that includes an interaction term. Interpret the parameters in this model - for this you don't need to talk about the actual values, just the meaning of the coefficients.
+
+```{r}
+fake_pigs %>% lm(Y2 ~ treatment * piglet_weight -1, data = .) %>% summary()
+```
+
+- `treatment1`: is the intercept or simple effect for treatment 1 when initial piglet weight = 0 (not scientifically meaningful)
+- `treatment2`: is the intercept or simple effect for treatment 2 when initial piglet weight = 0 (not scientifically meaningful)
+- `treatment3` is the intercept or simple effect for treatment 3 when initial piglet weight = 0 (not scientifically meaningful)
+- `piglet_weight` is the slope or expected increase for each unit of initial weight for a piglet receiving treatment one
+- `treatment2:piglet_weight` is the difference in slope between treatments one and two, if this is not zero the weight gain depends on treatment _AND_ starting weight
+- `treatment3:piglet_weight` is the difference in slope between treatments one and three, if this is not zero the weight gain depends on treatment _AND_ starting weight
