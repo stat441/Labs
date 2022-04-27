@@ -35,9 +35,13 @@ your 4 helicopters.
 
 To understand the observational error (differences in drop time for the
 same helicopter), each helicopter will be dropped and timed three times.
+Helicopters should be dropped from the bridge off of Wilson Hall. Drop
+them with an arm extended over the bridge over the where the sidewalk
+crosses under the bridge.
 
 Please submit the following a CSV file with the following structure,
-where time contains the time before the helicopter touches the ground.
+where time in seconds contains the time before the helicopter touches
+the ground (replace the 4s in the dataset below).
 
 ``` r
 tibble(EU = rep(1:4, each = 3),
